@@ -35,9 +35,9 @@ class Second extends StatelessWidget {
                       child: FlatButton(
                         shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(18.0),
-                            side: BorderSide(color: Colors.red)),
+                            side: BorderSide(color: Colors.blue)),
                         color: Colors.white,
-                        textColor: Colors.red,
+                        textColor: Colors.blue,
                         padding: EdgeInsets.all(8.0),
                         onPressed: () {
                           Navigator.push(
@@ -46,7 +46,7 @@ class Second extends StatelessWidget {
                           );
                         },
                         child: Text(
-                          "Add to Cart".toUpperCase(),
+                          "Weekly Diet".toUpperCase(),
                           style: TextStyle(
                             fontSize: 16.0,
                           ),
@@ -59,13 +59,13 @@ class Second extends StatelessWidget {
                       child: FlatButton(
                         shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(18.0),
-                            side: BorderSide(color: Colors.red)),
+                            side: BorderSide(color: Colors.blue)),
                         color: Colors.white,
-                        textColor: Colors.red,
+                        textColor: Colors.blue,
                         padding: EdgeInsets.all(8.0),
                         onPressed: () {},
                         child: Text(
-                          "Add to Cart".toUpperCase(),
+                          "Weight Gain".toUpperCase(),
                           style: TextStyle(
                             fontSize: 16.0,
                           ),
@@ -86,13 +86,13 @@ class Second extends StatelessWidget {
                       child: FlatButton(
                         shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(18.0),
-                            side: BorderSide(color: Colors.red)),
+                            side: BorderSide(color: Colors.blue)),
                         color: Colors.white,
-                        textColor: Colors.red,
+                        textColor: Colors.blue,
                         padding: EdgeInsets.all(8.0),
                         onPressed: () {},
                         child: Text(
-                          "Add to Cart".toUpperCase(),
+                          "Weight Lose".toUpperCase(),
                           style: TextStyle(
                             fontSize: 16.0,
                           ),
@@ -105,13 +105,13 @@ class Second extends StatelessWidget {
                       child: FlatButton(
                         shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(18.0),
-                            side: BorderSide(color: Colors.red)),
+                            side: BorderSide(color: Colors.blue)),
                         color: Colors.white,
-                        textColor: Colors.red,
+                        textColor: Colors.blue,
                         padding: EdgeInsets.all(8.0),
                         onPressed: () {},
                         child: Text(
-                          "Add to Cart".toUpperCase(),
+                          "Other Diets".toUpperCase(),
                           style: TextStyle(
                             fontSize: 16.0,
                           ),

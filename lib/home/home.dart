@@ -20,7 +20,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   //create all pages
 
-  final Third _sites = new Third();
+  final Exercise _sites = new Exercise();
   final Stepcount _dashboard = new Stepcount();
   final Second _clients = new Second();
   final Fourth _flutterpages = new Fourth();
@@ -69,10 +69,10 @@ Widget _pageChooser(int page){
           height: 50.0,
           items: <Widget>[
             Icon(FontAwesomeIcons.shoePrints, size: 23),
-            Icon(Icons.list, size: 30),
-            Icon(Icons.compare_arrows, size: 30),
-            Icon(Icons.call_split, size: 30),
-            Icon(Icons.perm_identity, size: 30),
+            Icon(FontAwesomeIcons.utensils, size: 30),
+            Icon(FontAwesomeIcons.dumbbell, size: 30),
+            Icon(FontAwesomeIcons.fileMedicalAlt, size: 30),
+            Icon(FontAwesomeIcons.map ,size: 30),
           ],
           color: Colors.blueAccent,
           buttonBackgroundColor: Colors.blueAccent,
