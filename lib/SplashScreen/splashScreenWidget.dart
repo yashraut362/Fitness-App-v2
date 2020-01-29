@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:fitness_app_megahack/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../Mental/video/youtube.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
