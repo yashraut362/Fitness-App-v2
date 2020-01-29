@@ -1,4 +1,4 @@
-import 'package:fitness_app_megahack/home/screens/first.dart';
+import 'package:fitness_app_megahack/home/screens/Pedometer_1.dart';
 import 'package:fitness_app_megahack/home/screens/second.dart';
 import 'package:fitness_app_megahack/home/screens/third.dart';
 import 'package:fitness_app_megahack/home/screens/fourth.dart';
@@ -21,13 +21,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
   //create all pages
 
   final Third _sites = new Third();
-  final First _dashboard = new First();
+  final Stepcount _dashboard = new Stepcount();
   final Second _clients = new Second();
   final Fourth _flutterpages = new Fourth();
   final Fifth _pageother = new Fifth();
 
 
-Widget _showPage = new First();
+Widget _showPage = new Stepcount();
 
 Widget _pageChooser(int page){
   switch(page){

@@ -4,14 +4,13 @@ import 'dart:async';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pedometer/pedometer.dart';
-import 'package:flutter_pedometer/flutter_pedometer.dart';
 
-class Pedometer extends StatefulWidget {
+class Stepcount extends StatefulWidget {
   @override
-  _PedometerState createState() => _PedometerState();
+  _StepcountState createState() => _StepcountState();
 }
 
-class _PedometerState extends State<Pedometer> {
+class _StepcountState extends State<Stepcount> {
   String muestrePasos = "";
   String _km = "Unknown";
   String _calories = "Unknown";
