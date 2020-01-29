@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
         //HereTo Navigate
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Temp()),
+          MaterialPageRoute(builder: (context) => BottomNavBar()),
         );
       },
     );
