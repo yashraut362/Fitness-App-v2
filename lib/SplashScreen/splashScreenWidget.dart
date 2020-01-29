@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:fitness_app_megahack/home/home.dart';
-import 'package:fitness_app_megahack/pedometer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

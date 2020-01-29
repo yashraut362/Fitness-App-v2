@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:fitness_app_megahack/bmi/screens/input_page.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -264,75 +265,52 @@ class _StepcountState extends State<Stepcount> {
                 ),
               ],
             ),
-            SizedBox(height: 40),
-            Center(
-              child: Text(
-                'Track Via',
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
             SizedBox(
-              height: 20,
+              height: 50,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                SizedBox(
-                  width: 20,
-                ),
-                MaterialButton(
-                  onPressed: () {},
-                  height: 150,
-                  minWidth: 160,
-                  color: Colors.white,
+                Container(
+                  height: 240,
+                  width: 150,
                   child: Column(
                     children: <Widget>[
-                      Image.asset(
-                        'assets/pedometer1.png',
-                        height: 140,
-                        width: 120,
+                      Image.asset('assets/Bmi/bmi.jpg'),
+                      SizedBox(
+                        height: 10,
                       ),
-                      Text(
-                        'Pedometer',
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: 19,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      )
+                      FlatButton(
+                          child: Text('BMI calculator',
+                              style: TextStyle(fontSize: 23)),
+                          // Within the `FirstRoute` widget
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => InputPage()),
+                            );
+                          })
                     ],
                   ),
                 ),
-                SizedBox(
-                  width: 40,
-                ),
-                MaterialButton(
-                  onPressed: () {},
-                  height: 150,
-                  minWidth: 160,
-                  color: Colors.white,
+                Container(
+                  height: 240,
+                  width: 150,
                   child: Column(
                     children: <Widget>[
                       Image.asset(
-                        'assets/band.png',
-                        height: 140,
-                        width: 120,
+                        'assets/Bmi/heart.jpg',
                       ),
-                      Text(
-                        'Pedometer',
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: 19,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      )
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text('Heart Rate', style: TextStyle(fontSize: 23))
                     ],
                   ),
                 ),
               ],
-            ),
+            )
           ],
         ),
       ),

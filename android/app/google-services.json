@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "828919917016",
+    "firebase_url": "https://fitnessapp-71d68.firebaseio.com",
+    "project_id": "fitnessapp-71d68",
+    "storage_bucket": "fitnessapp-71d68.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:828919917016:android:ebc55c3ab763b89f71aaad",
+        "android_client_info": {
+          "package_name": "androx.fitness_app_megahack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "828919917016-bn6lu6c1elqpki8psff4lim3o8agc89c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDA6UPgbL8dsu7hVbZrKkTBge5vYYm_rDA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "828919917016-bn6lu6c1elqpki8psff4lim3o8agc89c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
