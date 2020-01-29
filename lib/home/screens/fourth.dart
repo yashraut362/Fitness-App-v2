@@ -46,12 +46,9 @@ class Fourth extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => MyHomePage()),
+                        MaterialPageRoute(builder: (context) => YoutubePlayerDemoApp()),
                       );
-                    }),
-                Text('Motivational Videos', style: TextStyle(fontSize: 23)),
-                SizedBox(height: 20),
-                InkWell(
+                    },
                     child: Container(
                       height: 140.0,
                       width: 410.0,

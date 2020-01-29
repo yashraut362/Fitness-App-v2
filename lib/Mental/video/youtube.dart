@@ -1,258 +1,419 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:youtube_player/youtube_player.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-import 'video_detail.dart';
+import 'video_list.dart';
 
+/// Creates [YoutubePlayerDemoApp] widget.
+class YoutubePlayerDemoApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Youtube Player Flutter',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        appBarTheme: AppBarTheme(
+          color: Colors.blueAccent,
+          textTheme: TextTheme(
+            title: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w300,
+              fontSize: 20.0,
+            ),
+          ),
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.blueAccent,
+        ),
+      ),
+      home: MyHomePage(),
+    );
+  }
+}
+
+/// Homepage
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  static const platform = const MethodChannel("np.com.sarbagyastha.example");
-  TextEditingController _idController = TextEditingController();
-  TextEditingController _seekToController = TextEditingController();
-  double _volume = 1.0;
-  VideoPlayerController _videoController;
-  String position = "Get Current Position";
-  String status = "Get Player Status";
-  String videoDuration = "Get Video Duration";
-  String _source = "7QUtEmBT_-w";
-  bool isMute = false;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  YoutubePlayerController _controller;
+  TextEditingController _idController;
+  TextEditingController _seekToController;
+
+  PlayerState _playerState;
+  YoutubeMetaData _videoMetaData;
+  double _volume = 100;
+  bool _muted = false;
+  bool _isPlayerReady = false;
+
+  final List<String> _ids = [
+    'gQDByCdjUXw',
+    'iLnmTe5Q2Qw',
+    '_WoCV4c6XOE',
+    'KmzdUe0RSJo',
+    '6jZDSSZZxjQ',
+    'p2lYr3vM_1w',
+    '7QUtEmBT_-w',
+    '34_PXCzGw1M',
+  ];
+  int count = 0;
 
   @override
   void initState() {
-    getSharedVideoUrl();
     super.initState();
+    _controller = YoutubePlayerController(
+      initialVideoId: 'QFlRzcZoNoA',
+      flags: YoutubePlayerFlags(
+        mute: false,
+        autoPlay: true,
+        disableDragSeek: false,
+        loop: false,
+        isLive: false,
+        forceHideAnnotation: true,
+      ),
+    )..addListener(listener);
+    _idController = TextEditingController();
+    _seekToController = TextEditingController();
+    _videoMetaData = YoutubeMetaData();
+    _playerState = PlayerState.unknown;
+  }
+
+  void listener() {
+    if (_isPlayerReady && mounted && !_controller.value.isFullScreen) {
+      setState(() {
+        _playerState = _controller.value.playerState;
+        _videoMetaData = _controller.metadata;
+      });
+    }
+  }
+
+  @override
+  void deactivate() {
+    // Pauses video while navigating to next page.
+    _controller.pause();
+    super.deactivate();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _idController.dispose();
+    _seekToController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-       //   title: Text(widget.title),
-          centerTitle: true,
+    return Scaffold(
+      key: _scaffoldKey,
+      appBar: AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 12.0),
+          child: Image.asset(
+            'assets/ypf.png',
+            fit: BoxFit.fitWidth,
+          ),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              YoutubePlayer(
-                context: context,
-                source: _source,
-                quality: YoutubeQuality.HD,
-                aspectRatio: 16 / 9,
-                autoPlay: true,
-                loop: false,
-                reactToOrientationChange: true,
-                startFullScreen: false,
-                controlsActiveBackgroundOverlay: true,
-                controlsTimeOut: Duration(seconds: 4),
-                playerMode: YoutubePlayerMode.DEFAULT,
-                callbackController: (controller) {
-                  _videoController = controller;
-                },
-                onError: (error) {
-                  print(error);
-                },
-                onVideoEnded: () => _showThankYouDialog(),
+        title: Text(
+          'Youtube Player Flutter',
+          style: TextStyle(color: Colors.white),
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.video_library),
+            onPressed: () => Navigator.push(
+              context,
+              CupertinoPageRoute(
+                builder: (context) => VideoList(),
               ),
-              SizedBox(
-                height: 10.0,
+            ),
+          ),
+        ],
+      ),
+      body: ListView(
+        children: [
+          YoutubePlayer(
+            controller: _controller,
+            showVideoProgressIndicator: true,
+            progressIndicatorColor: Colors.blueAccent,
+            topActions: <Widget>[
+              SizedBox(width: 8.0),
+              Expanded(
+                child: Text(
+                  _controller.metadata.title,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.0,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    TextFormField(
-                      controller: _idController,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText:
-                              "https://www.youtube.com/watch?v=6cgxSL926N8"),
+              IconButton(
+                icon: Icon(
+                  Icons.settings,
+                  color: Colors.white,
+                  size: 25.0,
+                ),
+                onPressed: () {
+                  _showSnackBar('Settings Tapped!');
+                },
+              ),
+            ],
+            onReady: () {
+              _isPlayerReady = true;
+            },
+            onEnded: (id) {
+              _controller.load(_ids[count++]);
+              _showSnackBar('Next Video Started!');
+            },
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _space,
+                _text('Title', _videoMetaData.title),
+                _space,
+                _text('Channel', _videoMetaData.author),
+                _space,
+                _text('Video Id', _videoMetaData.videoId),
+                _space,
+                Row(
+                  children: [
+                    _text(
+                      'Playback Quality',
+                      _controller.value.playbackQuality,
                     ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          _source = _idController.text;
-                        });
-                      },
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 16.0,
-                        ),
-                        color: Colors.red,
-                        child: Text(
-                          "PLAY",
-                          style: TextStyle(fontSize: 18.0, color: Colors.white),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        IconButton(
-                          icon: Icon(Icons.play_arrow),
-                          onPressed: () => _videoController.value.isPlaying
-                              ? null
-                              : _videoController.play(),
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.pause),
-                          onPressed: () => _videoController.pause(),
-                        ),
-                        IconButton(
-                          icon:
-                              Icon(isMute ? Icons.volume_off : Icons.volume_up),
-                          onPressed: () {
-                            _videoController.setVolume(isMute ? 1 : 0);
-                            setState(
-                              () {
-                                isMute = !isMute;
-                              },
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    TextField(
-                      controller: _seekToController,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: "Seek to seconds",
-                        suffixIcon: Padding(
-                          padding: EdgeInsets.all(5.0),
-                          child: OutlineButton(
-                              child: Text("Seek"),
-                              onPressed: () => _videoController.seekTo(Duration(
-                                  seconds: int.parse(_seekToController.text)))),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Text(
-                          "Volume",
-                          style: TextStyle(fontWeight: FontWeight.w300),
-                        ),
-                        Expanded(
-                          child: Slider(
-                            inactiveColor: Colors.transparent,
-                            value: _volume,
-                            min: 0.0,
-                            max: 1.0,
-                            divisions: 10,
-                            label: '${(_volume * 10).round()}',
-                            onChanged: (value) {
-                              setState(() {
-                                _volume = value;
-                              });
-                              _videoController.setVolume(_volume);
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    OutlineButton(
-                      child: Text(position),
-                      onPressed: () => _videoController.position.then(
-                        (currentPosition) {
-                          setState(
-                            () {
-                              position = currentPosition.inSeconds.toString() +
-                                  " th second";
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                    OutlineButton(
-                      child: Text(videoDuration),
-                      onPressed: () {
-                        setState(
-                          () {
-                            videoDuration = _videoController
-                                    .value.duration.inSeconds
-                                    .toString() +
-                                " seconds";
-                          },
-                        );
-                      },
-                    ),
-                    OutlineButton(
-                      child: Text(status),
-                      onPressed: () {
-                        setState(() {
-                          _videoController.value.isPlaying
-                              ? status = "Playing"
-                              : status = "Paused";
-                        });
-                      },
-                    ),
-                    RaisedButton(
-                      child: Text("Next Page"),
-                      onPressed: () {
-                        _videoController.pause();
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => VideoDetail()),
-                        );
-                      },
+                    Spacer(),
+                    _text(
+                      'Playback Rate',
+                      '${_controller.value.playbackRate}x  ',
                     ),
                   ],
                 ),
-              )
-            ],
+                _space,
+                TextField(
+                  enabled: _isPlayerReady,
+                  controller: _idController,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Enter youtube \<video id\> or \<link\>',
+                    fillColor: Colors.blueAccent.withAlpha(20),
+                    filled: true,
+                    hintStyle: TextStyle(
+                      fontWeight: FontWeight.w300,
+                      color: Colors.blueAccent,
+                    ),
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.clear),
+                      onPressed: () => _idController.clear(),
+                    ),
+                  ),
+                ),
+                _space,
+                Row(
+                  children: [
+                    _loadCueButton('LOAD'),
+                    SizedBox(width: 10.0),
+                    _loadCueButton('CUE'),
+                  ],
+                ),
+                _space,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(
+                        _controller.value.isPlaying
+                            ? Icons.pause
+                            : Icons.play_arrow,
+                      ),
+                      onPressed: _isPlayerReady
+                          ? () {
+                              _controller.value.isPlaying
+                                  ? _controller.pause()
+                                  : _controller.play();
+                              setState(() {});
+                            }
+                          : null,
+                    ),
+                    IconButton(
+                      icon: Icon(_muted ? Icons.volume_off : Icons.volume_up),
+                      onPressed: _isPlayerReady
+                          ? () {
+                              _muted
+                                  ? _controller.unMute()
+                                  : _controller.mute();
+                              setState(() {
+                                _muted = !_muted;
+                              });
+                            }
+                          : null,
+                    ),
+                    FullScreenButton(
+                      controller: _controller,
+                      color: Colors.blueAccent,
+                    ),
+                  ],
+                ),
+                _space,
+                Row(
+                  children: <Widget>[
+                    Text(
+                      "Volume",
+                      style: TextStyle(fontWeight: FontWeight.w300),
+                    ),
+                    Expanded(
+                      child: Slider(
+                        inactiveColor: Colors.transparent,
+                        value: _volume,
+                        min: 0.0,
+                        max: 100.0,
+                        divisions: 10,
+                        label: '${(_volume).round()}',
+                        onChanged: _isPlayerReady
+                            ? (value) {
+                                setState(() {
+                                  _volume = value;
+                                });
+                                _controller.setVolume(_volume.round());
+                              }
+                            : null,
+                      ),
+                    ),
+                  ],
+                ),
+                _space,
+                AnimatedContainer(
+                  duration: Duration(milliseconds: 800),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                    color: _getStateColor(_playerState),
+                  ),
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    _playerState.toString(),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w300,
+                      color: Colors.white,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _text(String title, String value) {
+    return RichText(
+      text: TextSpan(
+        text: '$title : ',
+        style: TextStyle(
+          color: Colors.blueAccent,
+          fontWeight: FontWeight.bold,
+        ),
+        children: [
+          TextSpan(
+            text: value ?? '',
+            style: TextStyle(
+              color: Colors.blueAccent,
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Color _getStateColor(PlayerState state) {
+    switch (state) {
+      case PlayerState.unknown:
+        return Colors.grey[700];
+      case PlayerState.unStarted:
+        return Colors.pink;
+      case PlayerState.ended:
+        return Colors.red;
+      case PlayerState.playing:
+        return Colors.blueAccent;
+      case PlayerState.paused:
+        return Colors.orange;
+      case PlayerState.buffering:
+        return Colors.yellow;
+      case PlayerState.cued:
+        return Colors.blue[900];
+      default:
+        return Colors.blue;
+    }
+  }
+
+  Widget get _space => SizedBox(height: 10);
+
+  Widget _loadCueButton(String action) {
+    return Expanded(
+      child: MaterialButton(
+        color: Colors.blueAccent,
+        onPressed: _isPlayerReady
+            ? () {
+                if (_idController.text.isNotEmpty) {
+                  var id = YoutubePlayer.convertUrlToId(
+                    _idController.text,
+                  );
+                  if (action == 'LOAD') _controller.load(id);
+                  if (action == 'CUE') _controller.cue(id);
+                  FocusScope.of(context).requestFocus(FocusNode());
+                } else {
+                  _showSnackBar('Source can\'t be empty!');
+                }
+              }
+            : null,
+        disabledColor: Colors.grey,
+        disabledTextColor: Colors.black,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 14.0),
+          child: Text(
+            action,
+            style: TextStyle(
+              fontSize: 18.0,
+              color: Colors.white,
+              fontWeight: FontWeight.w300,
+            ),
+            textAlign: TextAlign.center,
           ),
         ),
       ),
     );
   }
 
-  void _showThankYouDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Video Ended"),
-          content: Text("Thank you for trying the plugin!"),
-        );
-      },
+  void _showSnackBar(String message) {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        content: Text(
+          message,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontWeight: FontWeight.w300,
+            fontSize: 16.0,
+          ),
+        ),
+        backgroundColor: Colors.blueAccent,
+        behavior: SnackBarBehavior.floating,
+        elevation: 1.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50.0),
+        ),
+      ),
     );
-  }
-
-  getSharedVideoUrl() async {
-    try {
-      var sharedData = await platform.invokeMethod("getSharedYoutubeVideoUrl");
-      if (sharedData != null && mounted) {
-        setState(() {
-          _source = sharedData;
-          print(_source);
-        });
-      }
-    } on PlatformException catch (e) {
-      print(e.message);
-    }
   }
 }
