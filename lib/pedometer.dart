@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pedometer/pedometer.dart';
+import 'package:flutter_pedometer/flutter_pedometer.dart';
 
 class Pedometer extends StatefulWidget {
   @override
