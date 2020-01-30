@@ -9,6 +9,9 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="fitness_app_megahack"
         android:icon="@mipmap/ic_launcher">
+         <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyCq2piZs7qOTSMkS8XYzetA8ePZLlsWbU8"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

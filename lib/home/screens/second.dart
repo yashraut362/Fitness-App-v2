@@ -5,6 +5,7 @@ class Second extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Welcome to Second',
       home: Scaffold(
         appBar: AppBar(
@@ -63,7 +64,12 @@ class Second extends StatelessWidget {
                         color: Colors.white,
                         textColor: Colors.blue,
                         padding: EdgeInsets.all(8.0),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Diet()),
+                          );
+                        },
                         child: Text(
                           "Weight Gain".toUpperCase(),
                           style: TextStyle(
@@ -90,7 +96,12 @@ class Second extends StatelessWidget {
                         color: Colors.white,
                         textColor: Colors.blue,
                         padding: EdgeInsets.all(8.0),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Diet()),
+                          );
+                        },
                         child: Text(
                           "Weight Lose".toUpperCase(),
                           style: TextStyle(
@@ -109,7 +120,12 @@ class Second extends StatelessWidget {
                         color: Colors.white,
                         textColor: Colors.blue,
                         padding: EdgeInsets.all(8.0),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Diet()),
+                          );
+                        },
                         child: Text(
                           "Other Diets".toUpperCase(),
                           style: TextStyle(

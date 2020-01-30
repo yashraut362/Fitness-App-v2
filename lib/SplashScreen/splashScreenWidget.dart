@@ -44,7 +44,14 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               Container(
-                child: Text('Fitness App For MegaHack'),
+                child: Text(
+                  'Fitness App For MegaHack',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 26,
+                  ),
+                ),
               ),
               Container(
                 child: Image.asset('assets/SplashScreen/splashScreen.gif'),

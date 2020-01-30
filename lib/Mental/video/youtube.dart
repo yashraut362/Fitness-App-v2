@@ -53,14 +53,14 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _isPlayerReady = false;
 
   final List<String> _ids = [
-    'gQDByCdjUXw',
-    'iLnmTe5Q2Qw',
-    '_WoCV4c6XOE',
-    'KmzdUe0RSJo',
-    '6jZDSSZZxjQ',
-    'p2lYr3vM_1w',
-    '7QUtEmBT_-w',
-    '34_PXCzGw1M',
+    'hCcF7eF6haQ',
+    'E_gYhUSlaUs',
+    'oLI4k4Xni6g',
+    'sVPYIRF9RCQ',
+    'fUXdrl9ch_Q',
+    '66z1pngBQ00',
+    'EvIpvr5FROw',
+    'rI8MaKoL64I',
   ];
   int count = 0;
 
@@ -68,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     _controller = YoutubePlayerController(
-      initialVideoId: 'QFlRzcZoNoA',
+      initialVideoId: 'hCcF7eF6haQ',
       flags: YoutubePlayerFlags(
         mute: false,
         autoPlay: true,

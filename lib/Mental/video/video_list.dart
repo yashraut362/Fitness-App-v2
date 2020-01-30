@@ -10,14 +10,14 @@ class VideoList extends StatefulWidget {
 
 class _VideoListState extends State<VideoList> {
   final List<YoutubePlayerController> _controllers = [
-    '_wAe0UM2qL0',
-    'iLnmTe5Q2Qw',
-    '_WoCV4c6XOE',
-    'KmzdUe0RSJo',
-    '6jZDSSZZxjQ',
-    'p2lYr3vM_1w',
-    '7QUtEmBT_-w',
-    '34_PXCzGw1M',
+    'hCcF7eF6haQ',
+    'E_gYhUSlaUs',
+    'oLI4k4Xni6g',
+    'sVPYIRF9RCQ',
+    'fUXdrl9ch_Q',
+    '66z1pngBQ00',
+    'EvIpvr5FROw',
+    'rI8MaKoL64I',
   ]
       .map<YoutubePlayerController>(
         (videoId) => YoutubePlayerController(

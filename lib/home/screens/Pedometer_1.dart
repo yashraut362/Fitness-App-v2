@@ -271,44 +271,71 @@ class _StepcountState extends State<Stepcount> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                Container(
-                  height: 240,
-                  width: 150,
-                  child: Column(
-                    children: <Widget>[
-                      Image.asset('assets/Bmi/bmi.jpg'),
-                      SizedBox(
-                        height: 10,
+                Column(
+                  children: <Widget>[
+                    InkWell(
+                        child: Container(
+                          height: 140.0,
+                          width: 180.0,
+                          decoration: new BoxDecoration(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(50.0)),
+                            image: DecorationImage(
+                              image: new AssetImage('assets/Bmi/bmi.jpg'),
+                              fit: BoxFit.contain,
+                            ),
+                            shape: BoxShape.rectangle,
+                            border: Border.all(
+                              width: 1,
+                            ),
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => InputPage()),
+                          );
+                        }),
+                    Text(
+                      "BMI Calculator",
+                      style: TextStyle(
+                        color: Colors.black,
+                    //    fontWeight: FontWeight.bold,
+                        fontSize: 24,
                       ),
-                      FlatButton(
-                          child: Text('BMI calculator',
-                              style: TextStyle(fontSize: 23)),
-                          // Within the `FirstRoute` widget
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => InputPage()),
-                            );
-                          })
-                    ],
-                  ),
+                    )
+                  ],
                 ),
-                Container(
-                  height: 240,
-                  width: 150,
-                  child: Column(
-                    children: <Widget>[
-                      Image.asset(
-                        'assets/Bmi/heart.jpg',
+                Column(
+                  children: <Widget>[
+                    InkWell(
+                      child: Container(
+                        height: 140.0,
+                        width: 180.0,
+                        decoration: new BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                          image: DecorationImage(
+                            image: new AssetImage('assets/Bmi/heart.jpg'),
+                            fit: BoxFit.contain,
+                          ),
+                          shape: BoxShape.rectangle,
+                          border: Border.all(
+                            width: 1,
+                          ),
+                        ),
                       ),
-                      SizedBox(
-                        height: 10,
+                    ),
+                    Text(
+                      "Heart Rate",
+                      style: TextStyle(
+                        color: Colors.black,
+               //         fontWeight: FontWeight.bold,
+                        fontSize: 24,
                       ),
-                      Text('Heart Rate', style: TextStyle(fontSize: 23))
-                    ],
-                  ),
-                ),
+                    ),
+                  ],
+                )
               ],
             )
           ],

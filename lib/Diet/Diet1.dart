@@ -27,10 +27,8 @@ class _DietState extends State<Diet> {
               padding: EdgeInsets.only(top: 30),
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                new Container(
-                  width: 12.0,
-                ),
                 MaterialButton(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(22.0)),
@@ -46,9 +44,6 @@ class _DietState extends State<Diet> {
                   minWidth: 100,
                   color: Colors.blueAccent,
                 ),
-                new Container(
-                  width: 12.0,
-                ),
                 MaterialButton(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(22.0)),
@@ -63,9 +58,6 @@ class _DietState extends State<Diet> {
                   height: 100,
                   minWidth: 100,
                   color: Colors.blueAccent,
-                ),
-                new Container(
-                  width: 12.0,
                 ),
                 MaterialButton(
                   shape: RoundedRectangleBorder(
@@ -88,10 +80,8 @@ class _DietState extends State<Diet> {
               padding: EdgeInsets.only(top: 30),
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                new Container(
-                  width: 70.0,
-                ),
                 MaterialButton(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(22.0)),
@@ -106,9 +96,6 @@ class _DietState extends State<Diet> {
                   height: 100,
                   minWidth: 100,
                   color: Colors.blueAccent,
-                ),
-                new Container(
-                  width: 12.0,
                 ),
                 MaterialButton(
                   shape: RoundedRectangleBorder(
@@ -125,19 +112,14 @@ class _DietState extends State<Diet> {
                   minWidth: 100,
                   color: Colors.blueAccent,
                 ),
-                new Container(
-                  width: 12.0,
-                ),
               ],
             ),
             Padding(
               padding: EdgeInsets.only(top: 30),
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                new Container(
-                  width: 70.0,
-                ),
                 MaterialButton(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(22.0)),
@@ -153,9 +135,6 @@ class _DietState extends State<Diet> {
                   minWidth: 100,
                   color: Colors.blueAccent,
                 ),
-                new Container(
-                  width: 12.0,
-                ),
                 MaterialButton(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(22.0)),
@@ -170,9 +149,6 @@ class _DietState extends State<Diet> {
                   height: 100,
                   minWidth: 100,
                   color: Colors.blueAccent,
-                ),
-                new Container(
-                  width: 12.0,
                 ),
               ],
             )
